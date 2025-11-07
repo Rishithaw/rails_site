@@ -1,0 +1,12 @@
+<% content_for :title, "Editing trait" %>
+
+<h1>Editing trait</h1>
+
+<%= render "form", trait: @trait %>
+
+<br>
+
+<div>
+  <%= link_to "Show this trait", @trait %> |
+  <%= link_to "Back to traits", traits_path %>
+</div>

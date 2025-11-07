@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Breeds" %>
+
+<h1>Breeds</h1>
+
+<div id="breeds">
+  <% @breeds.each do |breed| %>
+    <%= render breed %>
+    <p>
+      <%= link_to "Show this breed", breed %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New breed", new_breed_path %>

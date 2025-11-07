@@ -1,0 +1,22 @@
+<%= form_with(model: trait) do |form| %>
+  <% if trait.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(trait.errors.count, "error") %> prohibited this trait from being saved:</h2>
+
+      <ul>
+        <% trait.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

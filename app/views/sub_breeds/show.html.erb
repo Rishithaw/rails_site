@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @sub_breed %>
+
+<div>
+  <%= link_to "Edit this sub breed", edit_sub_breed_path(@sub_breed) %> |
+  <%= link_to "Back to sub breeds", sub_breeds_path %>
+
+  <%= button_to "Destroy this sub breed", @sub_breed, method: :delete %>
+</div>
