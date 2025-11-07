@@ -1,2 +1,23 @@
-<h1>Pages#about</h1>
-<p>Find me in app/views/pages/about.html.erb</p>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Welcome to Dog Explorer 🐶</h1>
+  <p class="lead text-center">
+    This app helps you explore different dog breeds, their traits, and their owners.
+  </p>
+
+  <hr class="my-4">
+
+  <div class="row text-center">
+    <div class="col-md-3">
+      <%= link_to "Owners", owners_path, class: "btn btn-primary w-100" %>
+    </div>
+    <div class="col-md-3">
+      <%= link_to "Dogs", dogs_path, class: "btn btn-primary w-100" %>
+    </div>
+    <div class="col-md-3">
+      <%= link_to "Breeds", breeds_path, class: "btn btn-primary w-100" %>
+    </div>
+    <div class="col-md-3">
+      <%= link_to "Traits", traits_path, class: "btn btn-primary w-100" %>
+    </div>
+  </div>
+</div>

@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Rails Site" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+    <title>Dog Explorer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <!-- Bootstrap Styles -->
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    # <%= yield %>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="/">Dog Explorer</a>
-        <div>
-          <%= link_to "Owners", owners_path, class: "nav-link d-inline" %>
-          <%= link_to "Dogs", dogs_path, class: "nav-link d-inline" %>
-          <%= link_to "Breeds", breeds_path, class: "nav-link d-inline" %>
-          <%= link_to "Traits", traits_path, class: "nav-link d-inline" %>
-          <%= link_to "About", about_path, class: "nav-link d-inline" %>
+        <%= link_to "🐾 Dog Explorer", root_path, class: "navbar-brand fw-bold" %>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><%= link_to "Owners", owners_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Dogs", dogs_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Breeds", breeds_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Traits", traits_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to "About", about_path, class: "nav-link" %></li>
+          </ul>
         </div>
       </div>
     </nav>
 
+    <!-- Page Content -->
+    <div class="container mt-4">
+      <%= yield %>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light text-center py-3 mt-5">
+      <p class="mb-0">&copy; <%= Time.now.year %> Dog Explorer. Built with ❤️ using Ruby on Rails.</p>
+    </footer>
   </body>
 </html>
