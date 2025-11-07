@@ -22,6 +22,19 @@
   </head>
 
   <body>
-    <%= yield %>
+    # <%= yield %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+      <div class="container">
+        <a class="navbar-brand" href="/">Dog Explorer</a>
+        <div>
+          <%= link_to "Owners", owners_path, class: "nav-link d-inline" %>
+          <%= link_to "Dogs", dogs_path, class: "nav-link d-inline" %>
+          <%= link_to "Breeds", breeds_path, class: "nav-link d-inline" %>
+          <%= link_to "Traits", traits_path, class: "nav-link d-inline" %>
+          <%= link_to "About", about_path, class: "nav-link d-inline" %>
+        </div>
+      </div>
+    </nav>
+
   </body>
 </html>
