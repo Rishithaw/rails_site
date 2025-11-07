@@ -24,12 +24,12 @@ Owner.destroy_all
 Trait.destroy_all
 
 # Creating traits
-puts "✨ Creating traits..."
+puts " Creating traits..."
 traits_list = ["Playful", "Loyal", "Energetic", "Calm", "Protective", "Friendly", "Curious", "Obedient", "Independent"]
 traits = traits_list.map { |t| Trait.create!(name: t) }
 
 # Creating owners
-puts "👤 Creating owners..."
+puts " Creating owners..."
 owners = []
 10.times do
   owners << Owner.create!(
