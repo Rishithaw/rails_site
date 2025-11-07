@@ -1,0 +1,18 @@
+current directory: /home/rishitha/Intro to Rails/rails_site/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+/usr/bin/ruby3.2 -I/usr/lib/ruby/vendor_ruby extconf.rb
+creating Makefile
+
+current directory: /home/rishitha/Intro to Rails/rails_site/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251107-5804-4pm8nd sitelibdir\=./.gem.20251107-5804-4pm8nd clean
+
+current directory: /home/rishitha/Intro to Rails/rails_site/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251107-5804-4pm8nd sitelibdir\=./.gem.20251107-5804-4pm8nd
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: /home/rishitha/Intro to Rails/rails_site/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251107-5804-4pm8nd sitelibdir\=./.gem.20251107-5804-4pm8nd install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20251107-5804-4pm8nd/skiptrace/internal
+
+current directory: /home/rishitha/Intro to Rails/rails_site/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251107-5804-4pm8nd sitelibdir\=./.gem.20251107-5804-4pm8nd clean
