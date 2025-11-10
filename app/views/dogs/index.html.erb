@@ -35,7 +35,12 @@
       <div class="col-md-4 mb-4 d-flex justify-content-center">
         <div class="card h-100 shadow-sm" style="width: 18rem;">
           <% if dog.sub_breed.images.any? %>
-            <%= image_tag dog.sub_breed.images.sample.url, class: "card-img-top", alt: "#{dog.name}" %>
+            <%= image_tag(
+                @dog.sub_breed.images.sample.url,
+                class: "card-img-top dog-image",
+                alt: "#{@dog.name}"
+              ) %>
+
           <% else %>
             <%= image_tag "https://via.placeholder.com/300x200?text=No+Image", class: "card-img-top", alt: "No image available" %>
           <% end %>

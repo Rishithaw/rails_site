@@ -20,4 +20,16 @@ html, body {
   font-size: 0.9rem;
   padding: 0.5em 0.8em;
 }
+/* All dog images */
+.dog-image {
+  width: 100%;
+  height: 250px; /* Adjust as needed (e.g., 300px for show page) */
+  object-fit: cover; /* Crop edges to fill space while keeping proportions */
+  border-bottom: 1px solid #ddd;
+}
+
+/* Taller images for show pages */
+.show-page .dog-image {
+  height: 400px;
+}
 

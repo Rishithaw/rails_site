@@ -1,44 +1,51 @@
-<div class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
+<div class="container my-5 show-page">
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
 
-      <div class="card shadow-lg">
-        <% if @dog.sub_breed.images.any? %>
-          <%= image_tag @dog.sub_breed.images.sample.url, class: "card-img-top img-fluid", alt: "#{@dog.name}" %>
-        <% else %>
-          <%= image_tag "https://via.placeholder.com/800x400?text=No+Image+Available", class: "card-img-top img-fluid", alt: "No image available" %>
-        <% end %>
+        <div class="card shadow-lg">
+          <% if @dog.sub_breed.images.any? %>
+            <%= image_tag(
+                @dog.sub_breed.images.sample.url,
+                class: "card-img-top dog-image",
+                alt: "#{@dog.name}"
+              ) %>
 
-        <div class="card-body">
-          <h2 class="card-title text-center mb-4"><%= @dog.name %></h2>
+          <% else %>
+            <%= image_tag "https://via.placeholder.com/800x400?text=No+Image+Available", class: "card-img-top img-fluid", alt: "No image available" %>
+          <% end %>
 
-          <ul class="list-group list-group-flush mb-3">
-            <li class="list-group-item">
-              <strong>Owner:</strong> <%= @dog.owner.name %>
-            </li>
-            <li class="list-group-item">
-              <strong>Breed:</strong> <%= @dog.sub_breed.breed.name %>
-            </li>
-            <li class="list-group-item">
-              <strong>Sub-Breed:</strong> <%= @dog.sub_breed.name %>
-            </li>
-          </ul>
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4"><%= @dog.name %></h2>
 
-          <div>
-            <strong>Traits:</strong>
-            <div class="mt-2">
-              <% @dog.traits.each do |t| %>
-                <span class="badge rounded-pill bg-primary me-1 mb-1"><%= t.name %></span>
-              <% end %>
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item">
+                <strong>Owner:</strong> <%= @dog.owner.name %>
+              </li>
+              <li class="list-group-item">
+                <strong>Breed:</strong> <%= @dog.sub_breed.breed.name %>
+              </li>
+              <li class="list-group-item">
+                <strong>Sub-Breed:</strong> <%= @dog.sub_breed.name %>
+              </li>
+            </ul>
+
+            <div>
+              <strong>Traits:</strong>
+              <div class="mt-2">
+                <% @dog.traits.each do |t| %>
+                  <span class="badge rounded-pill bg-primary me-1 mb-1"><%= t.name %></span>
+                <% end %>
+              </div>
             </div>
+          </div>
+
+          <div class="card-footer text-center bg-light">
+            <%= link_to "Back to Dogs", dogs_path, class: "btn btn-secondary" %>
           </div>
         </div>
 
-        <div class="card-footer text-center bg-light">
-          <%= link_to "Back to Dogs", dogs_path, class: "btn btn-secondary" %>
-        </div>
       </div>
-
     </div>
   </div>
 </div>
