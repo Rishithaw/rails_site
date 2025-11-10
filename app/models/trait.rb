@@ -1,4 +1,4 @@
 class Trait < ApplicationRecord
-  has_many :dogs_traits, dependent: :destroy
-  has_many :dogs, through: :dogs_traits
+  has_many :dog_traits, dependent: :destroy
+  has_many :dogs, through: :dog_traits
 end
