@@ -3,12 +3,13 @@ class DogsController < ApplicationController
 
   # GET /dogs or /dogs.json
   def index
-    @breeds = Breed.all  # For dropdown list
+    @breeds = Breed.all
+    @sub_breeds = SubBreed.all
 
-    # Start with all dogs joined to owner, sub_breed, and breed
+    # join all related tables so we can search/filter freely
     @dogs = Dog.joins(:owner, sub_breed: :breed).distinct
 
-  # Text search
+    # text search
     if params[:search].present?
       @dogs = @dogs.where(
         "dogs.name LIKE :q OR owners.name LIKE :q OR breeds.name LIKE :q OR sub_breeds.name LIKE :q",
@@ -16,11 +17,17 @@ class DogsController < ApplicationController
       )
     end
 
-  # Breed filter (works because we joined :breed above)
+    # breed filter
     if params[:breed_id].present?
       @dogs = @dogs.where(breeds: { id: params[:breed_id] })
     end
+
+    # sub-breed filter
+    if params[:sub_breed_id].present?
+      @dogs = @dogs.where(sub_breeds: { id: params[:sub_breed_id] })
+    end
   end
+
 
 
   # GET /dogs/1 or /dogs/1.json

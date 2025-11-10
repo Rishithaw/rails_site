@@ -6,9 +6,11 @@
 
 <!-- Search form -->
 <%= form_with url: dogs_path, method: :get, local: true do %>
-  <div class="row mb-3">
+  <div class="row g-2 mb-4">
     <div class="col-md-4">
-      <%= text_field_tag :search, params[:search], placeholder: "Search dogs, owners, or breeds...", class: "form-control" %>
+      <%= text_field_tag :search, params[:search],
+        placeholder: "Search dogs, owners, or breeds...",
+        class: "form-control" %>
     </div>
 
     <div class="col-md-3">
@@ -18,25 +20,38 @@
           class: "form-select" %>
     </div>
 
-    <div class="col-md-2">
-      <button class="btn btn-primary w-100" type="submit">Search</button>
+    <div class="col-md-3">
+      <%= select_tag :sub_breed_id,
+          options_from_collection_for_select(@sub_breeds, :id, :name, params[:sub_breed_id]),
+          include_blank: "All Sub-Breeds",
+          class: "form-select" %>
+    </div>
+
+    <div class="col-md-2 d-grid">
+      <button class="btn btn-primary" type="submit">Search</button>
     </div>
   </div>
 <% end %>
 
 <%= link_to "Clear Filters", dogs_path, class: "btn btn-secondary mb-3" %>
 
-<!-- Results -->
-<div id="dogs">
+<div class="row" id="dogs">
   <% if @dogs.any? %>
     <% @dogs.each do |dog| %>
-      <div class="card mb-3 p-3">
-        <h5><%= dog.name %></h5>
-        <p>
-          <strong>Owner:</strong> <%= dog.owner.name %><br>
-          <strong>Breed:</strong> <%= dog.sub_breed.breed.name %> (<%= dog.sub_breed.name %>)
-        </p>
-        <%= link_to "Show this dog", dog, class: "btn btn-primary btn-sm" %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><%= dog.name %></h5>
+            <p class="card-text">
+              <strong>Owner:</strong> <%= dog.owner.name %><br>
+              <strong>Breed:</strong> <%= dog.sub_breed.breed.name %><br>
+              <strong>Sub-Breed:</strong> <%= dog.sub_breed.name %>
+            </p>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <%= link_to "Show this dog", dog, class: "btn btn-outline-primary btn-sm w-100" %>
+          </div>
+        </div>
       </div>
     <% end %>
   <% else %>
@@ -44,4 +59,4 @@
   <% end %>
 </div>
 
-<%= link_to "New Dog", new_dog_path, class: "btn btn-success mt-3" %>
+<%= link_to "New Dog", new_dog_path, class: "btn btn-success mt-4" %>
