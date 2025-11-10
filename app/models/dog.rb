@@ -4,4 +4,7 @@ class Dog < ApplicationRecord
 
   has_many :dogs_traits, dependent: :destroy
   has_many :traits, through: :dogs_traits
+
+  validates :name, presence: true
+  validates :sub_breed_id, presence: true
 end
