@@ -3,21 +3,31 @@
 <% content_for :title, "Dogs" %>
 
 <h1>Dogs</h1>
+
+<!-- Search form -->
 <%= form_with url: dogs_path, method: :get, local: true do %>
   <div class="input-group mb-3">
-    <%= text_field_tag :search, params[:search], placeholder: "Search dogs by name...", class: "form-control" %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search dogs, breeds, or owners...", class: "form-control" %>
     <button class="btn btn-outline-secondary" type="submit">Search</button>
   </div>
 <% end %>
 
-
+<!-- Results -->
 <div id="dogs">
-  <% @dogs.each do |dog| %>
-    <%= render dog %>
-    <p>
-      <%= link_to "Show this dog", dog %>
-    </p>
+  <% if @dogs.any? %>
+    <% @dogs.each do |dog| %>
+      <div class="card mb-3 p-3">
+        <h5><%= dog.name %></h5>
+        <p>
+          <strong>Owner:</strong> <%= dog.owner.name %><br>
+          <strong>Breed:</strong> <%= dog.sub_breed.breed.name %> (<%= dog.sub_breed.name %>)
+        </p>
+        <%= link_to "Show this dog", dog, class: "btn btn-primary btn-sm" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No results found.</p>
   <% end %>
 </div>
 
-<%= link_to "New dog", new_dog_path %>
+<%= link_to "New Dog", new_dog_path, class: "btn btn-success mt-3" %>

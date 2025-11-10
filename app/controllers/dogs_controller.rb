@@ -1,14 +1,18 @@
 class DogsController < ApplicationController
-  before_action :set_dog, only: %i[ show edit update destroy ]
+  before_action :set_dog, only: %i[show edit update destroy]
 
   # GET /dogs or /dogs.json
   def index
-  if params[:search].present?
-    @dogs = Dog.where("name LIKE ?", "%#{params[:search]}%")
-  else
-    @dogs = Dog.all
+    if params[:search].present?
+      # Searches dogs by name, owner, breed, or sub-breed
+      @dogs = Dog.joins(:owner, sub_breed: :breed)
+                 .where("dogs.name LIKE :q OR owners.name LIKE :q OR breeds.name LIKE :q OR sub_breeds.name LIKE :q",
+                        q: "%#{params[:search]}%")
+                 .distinct
+    else
+      @dogs = Dog.all
+    end
   end
-end
 
   # GET /dogs/1 or /dogs/1.json
   def show
@@ -54,7 +58,6 @@ end
   # DELETE /dogs/1 or /dogs/1.json
   def destroy
     @dog.destroy!
-
     respond_to do |format|
       format.html { redirect_to dogs_path, notice: "Dog was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
@@ -62,13 +65,14 @@ end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+    # Using callbacks to share common setup or constraints between actions.
     def set_dog
-      @dog = Dog.find(params.expect(:id))
+      @dog = Dog.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # Only allowing a list of trusted parameters through.
     def dog_params
-      params.expect(dog: [ :name, :age, :owner_id, :breed_id ])
+      params.require(:dog).permit(:name, :owner_id, :sub_breed_id)
     end
 end
