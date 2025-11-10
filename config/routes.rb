@@ -20,4 +20,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :sub_breeds, only: [] do
+    collection do
+      get :by_breed
+    end
+  end
+
 end

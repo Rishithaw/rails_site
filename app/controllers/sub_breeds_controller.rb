@@ -19,6 +19,11 @@ class SubBreedsController < ApplicationController
   def edit
   end
 
+  def by_breed
+    sub_breeds = SubBreed.where(breed_id: params[:breed_id])
+    render json: sub_breeds
+  end
+
   # POST /sub_breeds or /sub_breeds.json
   def create
     @sub_breed = SubBreed.new(sub_breed_params)
