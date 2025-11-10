@@ -68,4 +68,6 @@
   <% end %>
 </div>
 
-<%= link_to "New Dog", new_dog_path, class: "btn btn-success mt-4" %>
+<div class="d-flex justify-content-center mt-4">
+  <%= paginate @dogs %>
+</div>

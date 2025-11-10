@@ -6,7 +6,11 @@ class DogsController < ApplicationController
     @breeds = Breed.all
 
     # Base query joining related tables for searching
-    @dogs = Dog.joins(:owner, sub_breed: :breed).distinct
+
+    @dogs = Dog.includes({ sub_breed: [:breed, :images] }, :owner)
+           .order(created_at: :desc)
+           .page(params[:page])
+           .per(8)
 
     # Simple text search
     if params[:search].present?

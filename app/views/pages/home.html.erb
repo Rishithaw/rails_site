@@ -49,6 +49,11 @@
     <% end %>
   </div>
 
+  <div class="d-flex justify-content-center mt-4 ">
+    <%= paginate @dogs %>
+  </div>
+
+
   <div class="mt-4">
     <%= link_to "View All Dogs →", dogs_path, class: "btn btn-secondary px-4" %>
   </div>
