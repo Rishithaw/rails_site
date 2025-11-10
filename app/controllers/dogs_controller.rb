@@ -3,28 +3,26 @@ class DogsController < ApplicationController
 
   # GET /dogs
   def index
-    @breeds = Breed.all
+  @breeds = Breed.all
 
-    # Base query joining related tables for searching
+  # ✅ Join all related tables once
+  @dogs = Dog.joins(:owner, sub_breed: :breed).distinct
 
-    @dogs = Dog.includes({ sub_breed: [:breed, :images] }, :owner)
-           .order(created_at: :desc)
-           .page(params[:page])
-           .per(6)
-
-    # Simple text search
-    if params[:search].present?
-      @dogs = @dogs.where(
-        "dogs.name LIKE :q OR owners.name LIKE :q OR breeds.name LIKE :q OR sub_breeds.name LIKE :q",
-        q: "%#{params[:search]}%"
-      )
-    end
-
-    # Hierarchical search (filter by breed)
-    if params[:breed_id].present?
-      @dogs = @dogs.where(breeds: { id: params[:breed_id] })
-    end
+  # 🔍 Simple text search
+  if params[:search].present?
+    @dogs = @dogs.where(
+      "dogs.name LIKE :q OR owners.name LIKE :q OR breeds.name LIKE :q OR sub_breeds.name LIKE :q",
+      q: "%#{params[:search]}%"
+    )
   end
+
+  # 🧭 Filter by breed (hierarchical search)
+  if params[:breed_id].present?
+    @dogs = @dogs.where(breeds: { id: params[:breed_id] })
+  end
+  @dogs = @dogs.page(params[:page]).per(6)
+end
+
 
   # GET /dogs/1
   def show; end
