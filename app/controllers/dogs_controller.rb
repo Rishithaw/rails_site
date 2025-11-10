@@ -3,8 +3,12 @@ class DogsController < ApplicationController
 
   # GET /dogs or /dogs.json
   def index
+  if params[:search].present?
+    @dogs = Dog.where("name LIKE ?", "%#{params[:search]}%")
+  else
     @dogs = Dog.all
   end
+end
 
   # GET /dogs/1 or /dogs/1.json
   def show
