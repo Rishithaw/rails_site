@@ -1,23 +1,92 @@
 <div class="container mt-5">
-  <h1 class="text-center mb-4">Welcome to Dog Explorer 🐶</h1>
-  <p class="lead text-center">
-    This app helps you explore different dog breeds, their traits, and their owners.
-  </p>
+  <h1 class="text-center mb-4">🐶 About Dog Explorer</h1>
 
-  <hr class="my-4">
+  <!-- About Section -->
+  <section class="mb-5">
+    <h3>About This App</h3>
+    <p>
+      <strong>Dog Explorer</strong> is a Ruby on Rails web application that helps users explore different
+      dog breeds, their sub-breeds, traits, and owners. The data is automatically generated using
+      public APIs and Ruby gems to simulate a rich, dynamic environment.
+    </p>
+  </section>
 
-  <div class="row text-center">
-    <div class="col-md-3">
-      <%= link_to "Owners", owners_path, class: "btn btn-primary w-100" %>
+  <!-- Dog API Section -->
+  <section class="mb-5">
+    <h3>Using the Dog API 🐾</h3>
+    <p>
+      The app integrates with the <a href="https://dog.ceo/dog-api/" target="_blank">Dog CEO API</a>
+      to fetch live data about dog breeds and sub-breeds, as well as random breed images.
+      This makes each seeding of the database slightly different — ensuring fresh, realistic data
+      each time.
+    </p>
+  </section>
+
+  <!-- Faker Section -->
+  <section class="mb-5">
+    <h3>Using the Faker Gem 🎲</h3>
+    <p>
+      The <code>faker</code> gem is used to generate random but realistic names for dog owners and dogs.
+      It helps create a more lifelike dataset without manually entering information.
+    </p>
+  </section>
+
+  <!-- ERD Section -->
+  <section class="mb-5">
+    <h3>Entity Relationship Diagram (ERD)</h3>
+    <p>
+      The following diagram shows how the data models relate to one another:
+    </p>
+    <div class="text-center">
+      <!-- Replace the link below with your actual ERD image file path -->
+      <img src="/assets/ERD.png" alt="ERD Diagram" class="img-fluid rounded shadow">
     </div>
-    <div class="col-md-3">
-      <%= link_to "Dogs", dogs_path, class: "btn btn-primary w-100" %>
-    </div>
-    <div class="col-md-3">
-      <%= link_to "Breeds", breeds_path, class: "btn btn-primary w-100" %>
-    </div>
-    <div class="col-md-3">
-      <%= link_to "Traits", traits_path, class: "btn btn-primary w-100" %>
-    </div>
-  </div>
+  </section>
+
+  <!-- Database Tables Section -->
+  <section class="mb-5">
+    <h3>Database Tables</h3>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong>owners</strong>: id, name, created_at, updated_at
+      </li>
+      <li class="list-group-item">
+        <strong>dogs</strong>: id, name, owner_id, sub_breed_id, created_at, updated_at
+      </li>
+      <li class="list-group-item">
+        <strong>breeds</strong>: id, name, created_at, updated_at
+      </li>
+      <li class="list-group-item">
+        <strong>sub_breeds</strong>: id, name, breed_id, created_at, updated_at
+      </li>
+      <li class="list-group-item">
+        <strong>traits</strong>: id, name, created_at, updated_at
+      </li>
+      <li class="list-group-item">
+        <strong>dogs_traits</strong>: id, dog_id, trait_id, created_at, updated_at
+      </li>
+      <li class="list-group-item">
+        <strong>images</strong>: id, url, sub_breed_id, created_at, updated_at
+      </li>
+    </ul>
+  </section>
+
+  <!-- Relationships Section -->
+  <section class="mb-5">
+    <h3>Model Relationships</h3>
+    <ul>
+      <li><strong>Owner</strong> has many <strong>Dogs</strong></li>
+      <li><strong>Dog</strong> belongs to an <strong>Owner</strong> and a <strong>SubBreed</strong></li>
+      <li><strong>Dog</strong> has many <strong>Traits</strong> through <strong>DogsTrait</strong></li>
+      <li><strong>Breed</strong> has many <strong>SubBreeds</strong></li>
+      <li><strong>SubBreed</strong> belongs to a <strong>Breed</strong> and has many <strong>Images</strong> and <strong>Dogs</strong></li>
+      <li><strong>Trait</strong> has many <strong>Dogs</strong> through <strong>DogsTrait</strong></li>
+      <li><strong>Image</strong> belongs to a <strong>SubBreed</strong></li>
+    </ul>
+  </section>
+
+  <footer class="text-center mt-5">
+    <hr>
+    <p>© <%= Time.now.year %> Dog Explorer. Built with ❤️ using Ruby on Rails.</p>
+  </footer>
 </div>
