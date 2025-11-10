@@ -6,11 +6,25 @@
 
 <!-- Search form -->
 <%= form_with url: dogs_path, method: :get, local: true do %>
-  <div class="input-group mb-3">
-    <%= text_field_tag :search, params[:search], placeholder: "Search dogs, breeds, or owners...", class: "form-control" %>
-    <button class="btn btn-outline-secondary" type="submit">Search</button>
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <%= text_field_tag :search, params[:search], placeholder: "Search dogs, owners, or breeds...", class: "form-control" %>
+    </div>
+
+    <div class="col-md-3">
+      <%= select_tag :breed_id,
+          options_from_collection_for_select(@breeds, :id, :name, params[:breed_id]),
+          include_blank: "All Breeds",
+          class: "form-select" %>
+    </div>
+
+    <div class="col-md-2">
+      <button class="btn btn-primary w-100" type="submit">Search</button>
+    </div>
   </div>
 <% end %>
+
+<%= link_to "Clear Filters", dogs_path, class: "btn btn-secondary mb-3" %>
 
 <!-- Results -->
 <div id="dogs">

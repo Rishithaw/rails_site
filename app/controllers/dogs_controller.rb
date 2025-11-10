@@ -3,14 +3,22 @@ class DogsController < ApplicationController
 
   # GET /dogs or /dogs.json
   def index
+     @breeds = Breed.all  # For dropdown list
+
+    @dogs = Dog.joins(:owner, sub_breed: :breed).distinct
+
     if params[:search].present?
-      # Searches dogs by name, owner, breed, or sub-breed
+      # Search dogs by name, owner, breed, or sub-breed
       @dogs = Dog.joins(:owner, sub_breed: :breed)
                  .where("dogs.name LIKE :q OR owners.name LIKE :q OR breeds.name LIKE :q OR sub_breeds.name LIKE :q",
                         q: "%#{params[:search]}%")
                  .distinct
     else
       @dogs = Dog.all
+    end
+
+    if params[:breed_id].present?
+    @dogs = @dogs.where("breeds.id = ?", params[:breed_id])
     end
   end
 
@@ -66,12 +74,12 @@ class DogsController < ApplicationController
 
   private
 
-    # Using callbacks to share common setup or constraints between actions.
+    # Use callbacks to share common setup or constraints between actions.
     def set_dog
       @dog = Dog.find(params[:id])
     end
 
-    # Only allowing a list of trusted parameters through.
+    # Only allow a list of trusted parameters through.
     def dog_params
       params.require(:dog).permit(:name, :owner_id, :sub_breed_id)
     end
