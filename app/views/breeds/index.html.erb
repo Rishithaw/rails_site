@@ -1,16 +1,32 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Breeds" %>
 
 <h1>Breeds</h1>
 
-<div id="breeds">
-  <% @breeds.each do |breed| %>
-    <%= render breed %>
-    <p>
-      <%= link_to "Show this breed", breed %>
-    </p>
+<div class="row">
+  <% if @breeds.any? %>
+    <% @breeds.each do |breed| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><%= breed.name %></h5>
+            <p class="card-text">
+              <strong>Sub-Breeds:</strong>
+              <% if breed.sub_breeds.any? %>
+                <%= breed.sub_breeds.map(&:name).join(", ") %>
+              <% else %>
+                None
+              <% end %>
+            </p>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <%= link_to "View Breed", breed, class: "btn btn-outline-primary btn-sm w-100" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No breeds found.</p>
   <% end %>
 </div>
 
-<%= link_to "New breed", new_breed_path %>
+<%= link_to "New Breed", new_breed_path, class: "btn btn-success mt-4" %>

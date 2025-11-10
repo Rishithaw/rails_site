@@ -1,16 +1,27 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Traits" %>
 
 <h1>Traits</h1>
 
-<div id="traits">
-  <% @traits.each do |trait| %>
-    <%= render trait %>
-    <p>
-      <%= link_to "Show this trait", trait %>
-    </p>
+<div class="row">
+  <% if @traits.any? %>
+    <% @traits.each do |trait| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><%= trait.name %></h5>
+            <p class="card-text">
+              <strong>Dogs with this trait:</strong> <%= trait.dogs.count %>
+            </p>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <%= link_to "View Trait", trait, class: "btn btn-outline-primary btn-sm w-100" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No traits found.</p>
   <% end %>
 </div>
 
-<%= link_to "New trait", new_trait_path %>
+<%= link_to "New Trait", new_trait_path, class: "btn btn-success mt-4" %>

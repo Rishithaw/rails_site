@@ -1,16 +1,27 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Owners" %>
 
 <h1>Owners</h1>
 
-<div id="owners">
-  <% @owners.each do |owner| %>
-    <%= render owner %>
-    <p>
-      <%= link_to "Show this owner", owner %>
-    </p>
+<div class="row">
+  <% if @owners.any? %>
+    <% @owners.each do |owner| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><%= owner.name %></h5>
+            <p class="card-text">
+              <strong>Dogs Owned:</strong> <%= owner.dogs.count %>
+            </p>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <%= link_to "View Owner", owner, class: "btn btn-outline-primary btn-sm w-100" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No owners found.</p>
   <% end %>
 </div>
 
-<%= link_to "New owner", new_owner_path %>
+<%= link_to "New Owner", new_owner_path, class: "btn btn-success mt-4" %>
