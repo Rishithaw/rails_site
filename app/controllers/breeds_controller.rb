@@ -3,7 +3,7 @@ class BreedsController < ApplicationController
 
   # GET /breeds or /breeds.json
   def index
-    @breeds = Breed.includes(:sub_breeds)
+    @breeds = Breed.includes(:sub_breeds).page(params[:page]).per(6)
   end
 
   # GET /breeds/1 or /breeds/1.json

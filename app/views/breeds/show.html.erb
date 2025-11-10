@@ -1,10 +1,51 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @breed %>
+<div class="container mt-4">
+  <h1 class="mb-4"><%= @breed.name %></h1>
 
-<div>
-  <%= link_to "Edit this breed", edit_breed_path(@breed) %> |
-  <%= link_to "Back to breeds", breeds_path %>
+  <!-- Breed Image Gallery -->
+  <% images = @breed.sub_breeds.flat_map(&:images) %>
+  <% if images.any? %>
+    <div class="row mb-4">
+      <% images.each do |img| %>
+        <div class="col-md-4 col-lg-3 mb-4">
+          <div class="card shadow-sm">
+            <%= image_tag img.url, class: "card-img-top", alt: "#{@breed.name} image" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">No images available for this breed.</p>
+  <% end %>
 
-  <%= button_to "Destroy this breed", @breed, method: :delete %>
+  <!-- 🐾 Sub-breeds list -->
+  <div class="mb-4">
+    <h4>Sub-Breeds</h4>
+    <% if @breed.sub_breeds.any? %>
+      <ul class="list-group">
+        <% @breed.sub_breeds.each do |sub_breed| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <%= sub_breed.name %>
+            <%= link_to "View Sub-Breed", sub_breed_path(sub_breed), class: "btn btn-outline-primary btn-sm" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted">No sub-breeds found for this breed.</p>
+    <% end %>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="d-flex gap-2 mt-4">
+    <%= link_to "Edit Breed", edit_breed_path(@breed), class: "btn btn-warning" %>
+    <%= link_to "Back to Breeds", breeds_path, class: "btn btn-secondary" %>
+    <%= button_to "Delete Breed", @breed, method: :delete,
+        data: { confirm: "Are you sure you want to delete this breed?" },
+        class: "btn btn-danger" %>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center mt-4">
+  <%= paginate @breeds %>
 </div>

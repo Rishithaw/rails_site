@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :owners
   resources :dogs
   resources :breeds
+  resources :sub_breeds
   resources :traits
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

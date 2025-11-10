@@ -7,6 +7,23 @@
     <% @breeds.each do |breed| %>
       <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
+
+          <!-- 🖼️ Breed Image -->
+          <% sub_breed_with_image = breed.sub_breeds.find { |sb| sb.images.any? } %>
+          <% if sub_breed_with_image.present? %>
+            <%= image_tag(
+                  sub_breed_with_image.images.sample.url,
+                  class: "card-img-top",
+                  alt: "#{breed.name} image"
+                ) %>
+          <% else %>
+            <%= image_tag(
+                  "https://placehold.co/600x400?text=#{breed.name}+Image",
+                  class: "card-img-top",
+                  alt: "No image available for #{breed.name}"
+                ) %>
+          <% end %>
+
           <div class="card-body">
             <h5 class="card-title"><%= breed.name %></h5>
             <p class="card-text">
@@ -18,13 +35,19 @@
               <% end %>
             </p>
           </div>
+
           <div class="card-footer bg-transparent border-top-0">
             <%= link_to "View Breed", breed, class: "btn btn-outline-primary btn-sm w-100" %>
           </div>
+
         </div>
       </div>
     <% end %>
   <% else %>
     <p>No breeds found.</p>
   <% end %>
+</div>
+
+<div class="d-flex justify-content-center mt-4">
+  <%= paginate @breeds %>
 </div>

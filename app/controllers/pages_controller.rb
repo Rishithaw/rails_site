@@ -4,7 +4,7 @@ class PagesController < ApplicationController
     @dogs = Dog.includes({ sub_breed: [:breed, :images] }, :owner)
              .order(created_at: :desc)
              .page(params[:page])
-             .per(8)
+             .per(6)
   end
 
   def about
