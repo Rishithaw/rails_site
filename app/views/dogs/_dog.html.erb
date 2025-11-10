@@ -1,23 +1,25 @@
-<div id="<%= dom_id dog %>">
-  <p>
-    <strong>Name:</strong>
-    <%= dog.name %>
-  </p>
+<div id="<%= dom_id dog %>" class="card mb-4 shadow-sm" style="width: 18rem;">
+  <% if dog.sub_breed.images.any? %>
+    <%= image_tag dog.sub_breed.images.sample.url, class: "card-img-top", alt: "#{dog.name}" %>
+  <% else %>
+    <%= image_tag "https://via.placeholder.com/300x200?text=No+Image", class: "card-img-top", alt: "No image available" %>
+  <% end %>
 
-  <p>
-    <strong>Owner:</strong>
-    <%= dog.owner_id %>
-  </p>
+  <div class="card-body">
+    <h5 class="card-title text-primary"><%= dog.name %></h5>
 
-  <p>
-  <strong>Breed:</strong>
-  <%= dog.sub_breed.breed.name %>
-  </p>
+    <p class="card-text mb-1">
+      <strong>Owner:</strong> <%= dog.owner.name %>
+    </p>
 
-  <p>
-    <strong>Sub-breed:</strong>
-    <%= dog.sub_breed.name %>
-  </p>
+    <p class="card-text mb-1">
+      <strong>Breed:</strong> <%= dog.sub_breed.breed.name %>
+    </p>
 
+    <p class="card-text mb-3">
+      <strong>Sub-breed:</strong> <%= dog.sub_breed.name %>
+    </p>
 
+    <%= link_to "View Details", dog_path(dog), class: "btn btn-outline-primary w-100" %>
+  </div>
 </div>

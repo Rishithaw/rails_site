@@ -2,7 +2,7 @@
 
 <% content_for :title, "Dogs" %>
 
-<h1>Dogs</h1>
+<h1 class="mb-4 text-center">🐶 Dogs</h1>
 
 <!-- Hierarchical Search Form -->
 <%= form_with url: dogs_path, method: :get, local: true do %>
@@ -32,16 +32,23 @@
 <div class="row" id="dogs">
   <% if @dogs.any? %>
     <% @dogs.each do |dog| %>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
+      <div class="col-md-4 mb-4 d-flex justify-content-center">
+        <div class="card h-100 shadow-sm" style="width: 18rem;">
+          <% if dog.sub_breed.images.any? %>
+            <%= image_tag dog.sub_breed.images.sample.url, class: "card-img-top", alt: "#{dog.name}" %>
+          <% else %>
+            <%= image_tag "https://via.placeholder.com/300x200?text=No+Image", class: "card-img-top", alt: "No image available" %>
+          <% end %>
+
           <div class="card-body">
-            <h5 class="card-title"><%= dog.name %></h5>
+            <h5 class="card-title text-primary"><%= dog.name %></h5>
             <p class="card-text">
               <strong>Owner:</strong> <%= dog.owner.name %><br>
               <strong>Breed:</strong> <%= dog.sub_breed.breed.name %><br>
               <strong>Sub-Breed:</strong> <%= dog.sub_breed.name %>
             </p>
           </div>
+
           <div class="card-footer bg-transparent border-top-0">
             <%= link_to "Show this dog", dog, class: "btn btn-outline-primary btn-sm w-100" %>
           </div>
