@@ -5,18 +5,19 @@
   </p>
 
   <p>
-    <strong>Age:</strong>
-    <%= dog.age %>
-  </p>
-
-  <p>
     <strong>Owner:</strong>
     <%= dog.owner_id %>
   </p>
 
   <p>
-    <strong>Breed:</strong>
-    <%= dog.breed_id %>
+  <strong>Breed:</strong>
+  <%= dog.sub_breed.breed.name %>
   </p>
+
+  <p>
+    <strong>Sub-breed:</strong>
+    <%= dog.sub_breed.name %>
+  </p>
+
 
 </div>
