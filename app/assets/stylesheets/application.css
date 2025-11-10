@@ -23,13 +23,18 @@ html, body {
 /* All dog images */
 .dog-image {
   width: 100%;
-  height: 250px; /* Adjust as needed (e.g., 300px for show page) */
-  object-fit: cover; /* Crop edges to fill space while keeping proportions */
+  height: 250px;
+  object-fit: cover;
   border-bottom: 1px solid #ddd;
 }
 
+
 /* Taller images for show pages */
 .show-page .dog-image {
-  height: 400px;
+  height: 350px; /* slightly taller on show page for better detail */
+  max-height: 350px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
 }
 

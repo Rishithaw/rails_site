@@ -9,3 +9,46 @@
     <%= link_to "Traits", traits_path, class: "btn btn-primary px-4" %>
   </div>
 </div>
+
+<hr class="my-5">
+
+  <h2 class="mb-4">🐾 Meet Some of Our Dogs</h2>
+
+  <div class="row justify-content-center">
+    <% @dogs.each do |dog| %>
+      <div class="col-md-4 col-lg-3 mb-4">
+        <div class="card h-100 shadow-sm">
+          <% if dog.sub_breed&.images&.any? %>
+            <%= image_tag(
+                  dog.sub_breed.images.sample.url,
+                  class: "card-img-top dog-image",
+                  alt: dog.name
+                ) %>
+          <% else %>
+            <%= image_tag(
+                  "https://placehold.co/600x400?text=No+Image",
+                  class: "card-img-top dog-image",
+                  alt: "No image available"
+                ) %>
+          <% end %>
+
+          <div class="card-body text-start">
+            <h5 class="card-title"><%= dog.name %></h5>
+            <p class="card-text mb-2">
+              <strong>Owner:</strong> <%= dog.owner.name %><br>
+              <strong>Breed:</strong> <%= dog.sub_breed.breed.name %><br>
+              <strong>Sub-Breed:</strong> <%= dog.sub_breed.name %>
+            </p>
+          </div>
+
+          <div class="card-footer bg-transparent border-top-0">
+            <%= link_to "View Dog", dog_path(dog), class: "btn btn-outline-primary btn-sm w-100" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to "View All Dogs →", dogs_path, class: "btn btn-secondary px-4" %>
+  </div>
