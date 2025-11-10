@@ -1,4 +1,3 @@
-# db/seeds.rb
 require "faker"
 require "net/http"
 require "json"
@@ -24,14 +23,14 @@ data["message"].each do |breed_name, sub_breeds|
     sub_breeds.each do |sub|
       sub_breed = breed.sub_breeds.create!(name: sub.capitalize)
 
-      # Fetch one image per sub-breed
+      # Fetching one image per sub-breed
       img_url = "https://dog.ceo/api/breed/#{breed_name}/#{sub}/images/random"
       img_response = Net::HTTP.get(URI(img_url))
       img_data = JSON.parse(img_response)
       sub_breed.images.create!(url: img_data["message"])
     end
   else
-    # Breed without sub-breed — store image directly
+    # Breed without sub-breed — stores image directly
     img_url = "https://dog.ceo/api/breed/#{breed_name}/images/random"
     img_response = Net::HTTP.get(URI(img_url))
     img_data = JSON.parse(img_response)
@@ -60,12 +59,11 @@ puts "Creating owners and dogs..."
 
     dog = owner.dogs.create!(
       name: Faker::Creature::Dog.name,
-      age: rand(1..12),
       sub_breed: sub_breed
     )
 
-    # Attach traits through join table
-    dog.traits << Trait.order("RANDOM()").limit(rand(2..4))
+    # Attaches traits through join table
+    dog.traits << Trait.all.sample(rand(1..3))
 
     puts "Created #{dog.name} (#{breed.name} / #{sub_breed.name}) with #{dog.traits.size} traits"
   end
