@@ -1,6 +1,6 @@
 <div class="container text-center mt-5">
   <h1>Welcome to Dog Explorer 🐶</h1>
-  <p>This app helps you explore different dog breeds, their traits, and their owners.</p>
+  <p>This app helps you explore different dog breeds, their traits and their owners.</p>
 
   <div class="d-flex justify-content-center gap-3 mt-4">
     <%= link_to "Owners", owners_path, class: "btn btn-primary px-4" %>
@@ -51,9 +51,4 @@
 
   <div class="d-flex justify-content-center mt-4 ">
     <%= paginate @dogs %>
-  </div>
-
-
-  <div class="mt-4">
-    <%= link_to "View All Dogs →", dogs_path, class: "btn btn-secondary px-4" %>
   </div>
