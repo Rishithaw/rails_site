@@ -22,15 +22,12 @@ data["message"].each do |breed_name, sub_breeds|
   if sub_breeds.any?
     sub_breeds.each do |sub|
       sub_breed = breed.sub_breeds.create!(name: sub.capitalize)
-
-      # Fetching one image per sub-breed
       img_url = "https://dog.ceo/api/breed/#{breed_name}/#{sub}/images/random"
       img_response = Net::HTTP.get(URI(img_url))
       img_data = JSON.parse(img_response)
       sub_breed.images.create!(url: img_data["message"])
     end
   else
-    # Breed without sub-breed — stores image directly
     img_url = "https://dog.ceo/api/breed/#{breed_name}/images/random"
     img_response = Net::HTTP.get(URI(img_url))
     img_data = JSON.parse(img_response)
@@ -41,31 +38,30 @@ end
 
 puts "Creating traits..."
 traits = [
-  "Playful", "Friendly", "Aggressive", "Energetic", "Calm", "Curious", "Protective",
-  "Loyal", "Gentle", "Independent", "Smart", "Obedient"
+  "Playful", "Friendly", "Aggressive", "Energetic", "Calm", "Curious",
+  "Protective", "Loyal", "Gentle", "Independent", "Smart", "Obedient"
 ]
-traits.each { |trait| Trait.create!(name: trait) }
+traits.each { |t| Trait.create!(name: t) }
 
 puts "Creating owners and dogs..."
 10.times do
-  owner = Owner.create!(
-    name: Faker::Name.name
-  )
+  owner = Owner.create!(name: Faker::Name.name)
 
   rand(1..3).times do
     breed = Breed.order("RANDOM()").first
     sub_breed = breed.sub_breeds.sample
-    image = sub_breed.images.sample
-
     dog = owner.dogs.create!(
       name: Faker::Creature::Dog.name,
       sub_breed: sub_breed
     )
 
-    # Attaches traits through join table
-    dog.traits << Trait.all.sample(rand(1..3))
+    # Assign random traits
+    selected_traits = Trait.order("RANDOM()").limit(rand(2..4))
+    selected_traits.each do |trait|
+      DogTrait.create!(dog: dog, trait: trait)
+    end
 
-    puts "Created #{dog.name} (#{breed.name} / #{sub_breed.name}) with #{dog.traits.size} traits"
+    puts "Created #{dog.name} (#{breed.name} / #{sub_breed.name}) with #{selected_traits.size} traits"
   end
 end
 
